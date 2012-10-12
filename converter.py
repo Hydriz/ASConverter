@@ -24,7 +24,37 @@ import re
 import urllib
 from xml.dom import minidom
 
-class ASConverter(object):
+class ASConverter:
+	def __init__(self):
+		"""
+		The initialiser function for all the globals.
+		"""
+		self.itemlist = ""
+		self.lang = ""
+		self.site = ""
+		self.normalsuffixes = [
+			'wiktionary',
+			'wikibooks',
+			'wikinews',
+			'wikiquote',
+			'wikisource',
+			'wikiversity']
+		self.specialcases = [
+			'bat_smgwiki',
+			'be_x_oldwiki',
+			'cbk_zamwiki',
+			'fiu_vrowiki',
+			'map_bmswiki',
+			'nds_nlwiki',
+			'roa_rupwiki',
+			'roa_tarawiki',
+			'simplewiki',
+			'zh_classicalwiki',
+			'zh_min_nanwiki',
+			'zh_yuewiki']
+		self.badcases = [
+			'tenwiki']
+
 	def convertdb(self, wikidb):
 		"""
 		This is the main function for converting database names into proper 
@@ -77,7 +107,7 @@ class ASConverter(object):
 			else:
 				continue
 
-		if 'wiki' in wikidb:
+		if "wiki" in wikidb:
 			length = len(wikidb)
 			if length > 7: # enwiki = 6, angwiki = 7
 				if any(wikidb in s for s in self.specialcases):
@@ -92,33 +122,3 @@ class ASConverter(object):
 				else:
 					self.site = "Wikipedia"
 					self.lang = wikidb.replace("wiki", "")
-
-	def __init__(self):
-		"""
-		The initialiser function for all the globals.
-		"""
-		self.itemlist = ""
-		self.lang = ""
-		self.site = ""
-		self.normalsuffixes = [
-			'wiktionary',
-			'wikibooks',
-			'wikinews',
-			'wikiquote',
-			'wikisource',
-			'wikiversity']
-		self.specialcases = [
-			'bat_smgwiki',
-			'be_x_oldwiki',
-			'cbk_zamwiki',
-			'fiu_vrowiki',
-			'map_bmswiki',
-			'nds_nlwiki',
-			'roa_rupwiki',
-			'roa_tarawiki',
-			'simplewiki',
-			'zh_classicalwiki',
-			'zh_min_nanwiki',
-			'zh_yuewiki']
-		self.badcases = [
-			'tenwiki']
