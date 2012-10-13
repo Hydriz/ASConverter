@@ -100,7 +100,8 @@ class ASConverter:
 			if length > 7: # enwiki = 6, angwiki = 7
 				if any(wikidb in s for s in self.specialcases):
 					self.site = "Wikipedia"
-					self.lang = wikidb.replace("wiki", "")
+					intlang = wikidb.replace("wiki", "")
+					self.lang = intlang.replace("_", "-")
 				else:
 					# Probably special wikis, will work on them later...
 					self.site = ""
