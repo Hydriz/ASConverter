@@ -22,7 +22,7 @@
 import os
 import re
 import urllib
-from xml.dom import minidom
+import xml.etree.ElementTree as ET
 
 class ASConverter:
 	def __init__(self):
@@ -31,6 +31,7 @@ class ASConverter:
 		"""
 		self.itemlist = ""
 		self.lang = ""
+		self.langname = ""
 		self.site = ""
 		self.normalsuffixes = [
 			'wiktionary',
@@ -61,31 +62,26 @@ class ASConverter:
 		readable wiki names (i.e. enwiki -> English Wikipedia).
 		
 		TODO: Make this script work for special wikis.
-		"""
-		self.apicall(wikidb)
-		for entry in self.itemlist:
-			if (self.lang == entry):
-				return entry.attributes['localname'].value
-				break
-			else:
-				continue
 		
-	def apicall(self, wikidb):
-		"""
-		This is the function used by the class to do switching of the 
-		database name into a human-readable site name.
-		
-		This function is called by self.convertdb().
-		
-		wikidb - The database name to work with.
+		wikidb - The database name to work on.
 		"""
 		self.sanitycheck(wikidb)
 		if (self.site == ""):
 			self.name = wikidb # Keep it like the way it is now
 		else:
-			#os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml')
-			xmldoc = minidom.parse('langlist.xml')
-			self.itemlist = xmldoc.getElementsByTagName('language')
+			if not (os.path.exists('langlist.xml')):
+				os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml -q')
+			else:
+				# Don't do anything (hackish way of making the script continue)
+				blah = ""
+			tree = ET.parse('langlist.xml')
+			root = tree.getroot()
+			for language in root.iter('language'):
+				if (self.lang == language.get('code')):
+					self.langname = language.get('localname')
+					break
+				else:
+					continue
 	
 	def sanitycheck(self, wikidb):
 		"""
@@ -95,18 +91,10 @@ class ASConverter:
 		special wikis will be kept in its original state (its part of 
 		the file's TODO).
 		
-		This function is called by self.apicall().
+		This function is called by self.convertdb().
 		
 		wikidb - The database name to work with.
 		"""
-		for suffix in self.normalsuffixes:
-			if suffix in wikidb:
-				self.site = suffix.title() # Capitalises the first letter
-				self.lang = wikidb.replace(suffix, "")
-				break
-			else:
-				continue
-
 		if "wiki" in wikidb:
 			length = len(wikidb)
 			if length > 7: # enwiki = 6, angwiki = 7
@@ -117,8 +105,16 @@ class ASConverter:
 					# Probably special wikis, will work on them later...
 					self.site = ""
 			elif length < 8:
-				if any(wikidb in s for s in self.badcases):
+				if (wikidb == "tenwiki"):
 					self.site = ""
 				else:
 					self.site = "Wikipedia"
 					self.lang = wikidb.replace("wiki", "")
+
+		for suffix in self.normalsuffixes:
+			if suffix in wikidb:
+				self.site = suffix.title() # Capitalises the first letter
+				self.lang = wikidb.replace(suffix, "")
+				break
+			else:
+				continue
