@@ -157,7 +157,7 @@ class ASConverter:
 		elif (self.lang == "fiu-vro"):
 			self.langname = "Voro"
 		elif (self.lang == "frp"):
-			self.langname = "Franco-Provencal"
+			self.langname = "Arpitan"
 		elif (self.lang == "lbe"):
 			self.langname = "Lak"
 		elif (self.lang == "nb"):
