@@ -18,7 +18,21 @@
 # is not designed to work standalone, but rather as a supporting scripts 
 # for the scripts. You can find the different archiving projects and 
 # scripts at https://github.com/Hydriz
+# 
+# Usage:
+# self.site	-	This is the site that the wiki database should belong to.
+#				E.g. if the database ends with "wiktionary", self.site 
+#				will output "Wiktionary".
+# self.langname - 	This is the language name of the wiki database. E.g. 
+#					"en" will become "English".
+# self.date	-	This is the output date (20121010 to October 10, 2012).
+#
+# TODO:
+# * The script does not work for special wikis (i.e. incubatorwiki).
+# * The language code hacks should be fixed upstream at CLDR, though it 
+#   isn't of the highest priority right now.
 
+from datetime import datetime
 import os
 import re
 import urllib
@@ -29,6 +43,7 @@ class ASConverter:
 		"""
 		The initialiser function for all the globals.
 		"""
+		# Globals for conversion of wiki databases to site names
 		self.itemlist = ""
 		self.lang = ""
 		self.langname = ""
@@ -55,6 +70,9 @@ class ASConverter:
 			'zh_yuewiki']
 		self.badcases = [
 			'tenwiki']
+
+		# Globals for conversion of dates to human-readable format.
+		self.date = ""
 
 	def convertdb(self, wikidb):
 		"""
@@ -150,3 +168,20 @@ class ASConverter:
 			self.langname = "Venetian"
 		elif (self.lang == "vo"):
 			self.langname = "Volapuk"
+
+	def convertdate(self, date):
+		"""
+		This is the main function for converting the date into a more human-
+		readable format. In this case, we are changing things like:
+		20121010 -> October 10, 2012
+		
+		This function is supposed to be directly called by the archive scripts.
+		
+		Parameters:
+		* date - The date format to work on (should be %Y%m%d format)
+		
+		This function returns a date in %B %d, %Y format. Please use the 
+		self.date variable in the script.
+		"""
+		d = datetime.strptime(date, '%Y%m%d')
+		self.date = day_string = d.strftime('%B %d, %Y')
