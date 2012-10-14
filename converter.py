@@ -153,7 +153,7 @@ class ASConverter:
 		if (self.lang == "be-x-old"):
 			self.langname = "Belarusian Classical"
 		elif (self.lang == "bxr"):
-			self.langname = "Russia_Buriat"
+			self.langname = "Russia Buriat"
 		elif (self.lang == "fiu-vro"):
 			self.langname = "Voro"
 		elif (self.lang == "lbe"):
