@@ -79,6 +79,7 @@ class ASConverter:
 			for language in root.iter('language'):
 				if (self.lang == language.get('code')):
 					self.langname = language.get('localname')
+					self.encodingcheck()
 					break
 				else:
 					continue
@@ -119,3 +120,23 @@ class ASConverter:
 				break
 			else:
 				continue
+
+	def encodingcheck(self):
+		"""
+		This function checks if the wiki database name matches a set marked 
+		out as having issues with encoding, which can cause scripts to go 
+		crazy and exit altogether.
+		
+		This function is called by self.convertdb()
+		
+		TODO: Fix the language codes upstream so that we don't have to do 
+		this hackish method of making the languages really English.
+		"""
+		if (self.lang == "be-x-old"):
+			self.langname = "Belarusian Classical"
+		elif (self.lang == "lbe"):
+			self.langname = "Lak"
+		elif (self.lang == "vec"):
+			self.langname = "Venetian"
+		elif (self.lang == "vo"):
+			self.langname = "Volapuk"
