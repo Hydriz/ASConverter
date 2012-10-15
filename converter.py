@@ -162,6 +162,8 @@ class ASConverter:
 			self.langname = "Lak"
 		elif (self.lang == "nb"):
 			self.langname = "Norwegian Bokmal"
+		elif (self.lang == "no"):
+			self.langname = "Norwegian"
 		elif (self.lang == "pfl"):
 			self.langname = "Palatinate German"
 		elif (self.lang == "roa-tara"):
