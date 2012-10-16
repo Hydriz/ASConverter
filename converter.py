@@ -130,6 +130,8 @@ class ASConverter:
 			elif length < 8:
 				if (wikidb == "tenwiki"):
 					self.site = ""
+				elif (wikidb == "fdcwiki"):
+					self.site = ""
 				else:
 					self.site = "Wikipedia"
 					self.lang = wikidb.replace("wiki", "")
