@@ -99,6 +99,9 @@ class ASConverter:
 					self.langname = language.get('localname')
 					self.encodingcheck()
 					break
+				elif (self.lang == 'beta'):
+					self.langname = 'Beta' # Support for Beta Wikiversity
+					break
 				else:
 					continue
 	
