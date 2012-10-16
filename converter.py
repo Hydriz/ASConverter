@@ -48,6 +48,8 @@ class ASConverter:
 		self.lang = ""
 		self.langname = ""
 		self.site = ""
+		self.special = False
+		self.sitename = ""
 		self.normalsuffixes = [
 			'wiktionary',
 			'wikibooks',
@@ -84,8 +86,9 @@ class ASConverter:
 		wikidb - The database name to work on.
 		"""
 		self.sanitycheck(wikidb)
-		if (self.site == ""):
-			self.name = wikidb # Keep it like the way it is now
+		# Shouldn't have any wikis that fall in this category, but leaving it here for forward compatibility
+		if (self.site == "" and self.special == ""):
+			self.sitename = wikidb # Keep it like the way it is now
 		else:
 			if not (os.path.exists('langlist.xml')):
 				os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml -q')
@@ -94,16 +97,53 @@ class ASConverter:
 				blah = ""
 			tree = ET.parse('langlist.xml')
 			root = tree.getroot()
-			for language in root.iter('language'):
-				if (self.lang == language.get('code')):
-					self.langname = language.get('localname')
-					self.encodingcheck()
-					break
-				elif (self.lang == 'beta'):
-					self.langname = 'Beta' # Support for Beta Wikiversity
-					break
-				else:
-					continue
+			if (self.special):
+				if "wiki" in wikidb:
+					if (wikidb == "betawikiversity"):
+						self.sitename = "Wikiversity Beta"
+					elif (wikidb == "donatewiki"):
+						self.sitename = "Donate"
+					elif (wikidb == "foundationwiki"):
+						self.sitename = "Wikimedia Foundation wiki"
+					elif (wikidb == "mediawikiwiki"):
+						self.sitename = "MediaWiki.org"
+					elif (wikidb == "metawiki"):
+						self.sitename = "Meta-Wiki"
+					elif (wikidb == "nostalgiawiki"):
+						self.sitename = "Nostalgia Wikipedia"
+					elif (wikidb == "outreachwiki"):
+						self.sitename = "Outreach Wiki"
+					elif (wikidb == "sourceswiki"):
+						self.sitename = "Wikisource"
+					elif (wikidb == "specieswiki"):
+						self.sitename = "Wikispecies"
+					elif (wikidb == "strategywiki"):
+						self.sitename = "Wikimedia Strategic Planning"
+					elif (wikidb == "testwiki"):
+						self.sitename = "Test Wikipedia"
+					elif (wikidb == "test2wiki"):
+						self.sitename = "test2.Wikipedia"
+					elif (wikidb == "usabilitywiki"):
+						self.sitename = "Wikimedia Usability Initiative"
+					else:
+						tempname = wikidb.replace("wiki","")
+						if "wikimania" in wikidb:
+							temp2name = tempname.replace("mania","")
+							self.sitename = "Wikimania %s" % (temp2name)
+						else:
+							subname = tempname.title()
+							self.sitename = "Wikimedia %s" % (subname)
+				if "wikimedia" in wikidb:
+					self.sitename = wikidb # Keep it like the way it is now
+			else:
+				for language in root.iter('language'):
+					if (self.lang == language.get('code')):
+						self.langname = language.get('localname')
+						self.encodingcheck()
+						self.sitename = "%s %s" % (self.langname, self.site)
+						break
+					else:
+						continue
 	
 	def sanitycheck(self, wikidb):
 		"""
@@ -126,12 +166,13 @@ class ASConverter:
 					self.lang = intlang.replace("_", "-")
 				else:
 					# Probably special wikis, will work on them later...
+					self.special = True
 					self.site = ""
 			elif length < 8:
 				if (wikidb == "tenwiki"):
-					self.site = ""
+					self.sitename = "Wikipedia 10"
 				elif (wikidb == "fdcwiki"):
-					self.site = ""
+					self.sitename = "Wikimedia FDC"
 				else:
 					self.site = "Wikipedia"
 					self.lang = wikidb.replace("wiki", "")
