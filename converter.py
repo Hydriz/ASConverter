@@ -157,7 +157,7 @@ class ASConverter:
 		
 		wikidb - The database name to work with.
 		"""
-		if "wiki" in wikidb:
+		if wikidb.endswith("wiki"):
 			length = len(wikidb)
 			if length > 7: # enwiki = 6, angwiki = 7
 				if any(wikidb in s for s in self.specialcases):
