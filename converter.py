@@ -125,15 +125,11 @@ class ASConverter:
 						self.sitename = "test2.Wikipedia"
 					elif (wikidb == "usabilitywiki"):
 						self.sitename = "Wikimedia Usability Initiative"
-					else:
-						tempname = wikidb.replace("wiki","")
-						if "wikimania" in wikidb:
-							temp2name = tempname.replace("mania","")
-							self.sitename = "Wikimania %s" % (temp2name)
-						else:
-							subname = tempname.title()
-							self.sitename = "Wikimedia %s" % (subname)
-				if wikidb.endswith("wiki"):
+					elif ("wikimania" in wikidb):
+						tempname = wikidb.replace("wikimania","")
+						wmyear = tempname.replace("wiki","")
+						self.sitename = "Wikimania %s" % (wmyear)
+				else:
 					self.sitename = wikidb # Keep it like the way it is now
 			else:
 				for language in root.iter('language'):
