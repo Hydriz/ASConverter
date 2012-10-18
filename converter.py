@@ -98,7 +98,7 @@ class ASConverter:
 			tree = ET.parse('langlist.xml')
 			root = tree.getroot()
 			if (self.special):
-				if "wiki" in wikidb:
+				if wikidb.endswith("wiki"):
 					if (wikidb == "betawikiversity"):
 						self.sitename = "Wikiversity Beta"
 					elif (wikidb == "donatewiki"):
@@ -133,7 +133,7 @@ class ASConverter:
 						else:
 							subname = tempname.title()
 							self.sitename = "Wikimedia %s" % (subname)
-				if "wikimedia" in wikidb:
+				if wikidb.endswith("wiki"):
 					self.sitename = wikidb # Keep it like the way it is now
 			else:
 				for language in root.iter('language'):
