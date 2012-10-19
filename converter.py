@@ -129,6 +129,8 @@ class ASConverter:
 						tempname = wikidb.replace("wikimania","")
 						wmyear = tempname.replace("wiki","")
 						self.sitename = "Wikimania %s" % (wmyear)
+					else:
+						self.sitename = wikidb # Keep it like the way it is now
 				else:
 					self.sitename = wikidb # Keep it like the way it is now
 			else:
