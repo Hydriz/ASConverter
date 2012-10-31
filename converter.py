@@ -126,7 +126,7 @@ class ASConverter:
 						self.sitename = "Wikimedia Usability Initiative"
 					elif (wikidb == "wikidatawiki"):
 						self.sitename = "Wikidata"
-					elif ("wikimania" in wikidb):
+					elif (wikidb.startswith("wikimania")):
 						tempname = wikidb.replace("wikimania","")
 						wmyear = tempname.replace("wiki","")
 						self.sitename = "Wikimania %s" % (wmyear)
