@@ -99,10 +99,8 @@ class ASConverter:
 			root = tree.getroot()
 			if (self.special):
 				if wikidb.endswith("wiki"):
-					if (wikidb == "betawikiversity"):
-						self.sitename = "Wikiversity Beta"
-					elif (wikidb == "donatewiki"):
-						self.sitename = "Donate"
+					if (wikidb == "donatewiki"):
+						self.sitename = "Donate Wiki"
 					elif (wikidb == "foundationwiki"):
 						self.sitename = "Wikimedia Foundation wiki"
 					elif (wikidb == "mediawikiwiki"):
@@ -125,6 +123,8 @@ class ASConverter:
 						self.sitename = "test2.Wikipedia"
 					elif (wikidb == "usabilitywiki"):
 						self.sitename = "Wikimedia Usability Initiative"
+					elif (wikidb == "wikidatawiki"):
+						self.sitename = "Wikidata"
 					elif ("wikimania" in wikidb):
 						tempname = wikidb.replace("wikimania","")
 						wmyear = tempname.replace("wiki","")
@@ -132,7 +132,10 @@ class ASConverter:
 					else:
 						self.sitename = wikidb # Keep it like the way it is now
 				else:
-					self.sitename = wikidb # Keep it like the way it is now
+					if (wikidb == "betawikiversity"):
+						self.sitename = "Wikiversity Beta"
+					else:
+						self.sitename = wikidb # Keep it like the way it is now
 			else:
 				for language in root.iter('language'):
 					if (self.lang == language.get('code')):
