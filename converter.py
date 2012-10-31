@@ -56,7 +56,8 @@ class ASConverter:
 			'wikinews',
 			'wikiquote',
 			'wikisource',
-			'wikiversity']
+			'wikiversity',
+			'wikivoyage']
 		self.specialcases = [
 			'bat_smgwiki',
 			'be_x_oldwiki',
