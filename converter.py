@@ -178,6 +178,11 @@ class ASConverter:
 				else:
 					self.site = "Wikipedia"
 					self.lang = wikidb.replace("wiki", "")
+		elif wikidb.endswith("wikimedia"):
+			code = wikidb.replace("wikimedia","")
+			self.convertcountrycode(code)
+			if (self.sitename == ""):
+				self.sitename = wikidb # Keep it like the way it is now
 		else:
 			for suffix in self.normalsuffixes:
 				if suffix in wikidb:
@@ -238,3 +243,61 @@ class ASConverter:
 		"""
 		d = datetime.strptime(date, '%Y%m%d')
 		self.date = day_string = d.strftime('%B %d, %Y')
+
+	def convertcountrycode(self, code):
+		"""
+		This function converts the country code into a readable name of the 
+		country in question, used for chapter wikis.
+
+		Note: This does not contain all countries, and may contain codes 
+		that aren't really pointing to a country. In short, this is 
+		Wikimedia-specific.
+		"""
+		if (code == 'ar'):
+			self.sitename = 'Wikimedia Argentina'
+		elif (code == 'bd'):
+			self.sitename = 'Wikimedia Bangladesh'
+		elif (code == 'be'):
+			self.sitename = 'Wikimedia Belgium'
+		elif (code == 'br'):
+			self.sitename = 'Wikimedia Brazil'
+		elif (code == 'co'):
+			self.sitename = 'Wikimedia Colombia'
+		elif (code == 'dk'):
+			self.sitename = 'Wikimedia Denmark'
+		elif (code == 'et'):
+			self.sitename = 'Wikimedia Estonia'
+		elif (code == 'fi'):
+			self.sitename = 'Wikimedia Finland'
+		elif (code == 'il'):
+			self.sitename = 'Wikimedia Israel'
+		elif (code == 'mk'):
+			self.sitename = 'Wikimedia Macedonia'
+		elif (code == 'mx'):
+			self.sitename = 'Wikimedia Mexico'
+		elif (code == 'nl'):
+			self.sitename = 'Wikimedia Netherlands'
+		elif (code == 'no'):
+			self.sitename = 'Wikimedia Norway'
+		elif (code == 'nyc'):
+			self.sitename = 'Wikimedia New York City' # Unofficial
+		elif (code == 'nz'):
+			self.sitename = 'Wikimedia New Zealand'
+		elif (code == 'pa_us'):
+			self.sitename = 'Wikimedia Pennsylvania' # Unofficial
+		elif (code == 'pl'):
+			self.sitename = 'Wikimedia Poland'
+		elif (code == 'rs'):
+			self.sitename = 'Wikimedia Serbia'
+		elif (code == 'ru'):
+			self.sitename = 'Wikimedia Russia'
+		elif (code == 'se'):
+			self.sitename = 'Wikimedia Sweden'
+		elif (code == 'tr'):
+			self.sitename = 'Wikimedia Turkey'
+		elif (code == 'ua'):
+			self.sitename = 'Wikimedia Ukraine'
+		elif (code == 'uk'):
+			self.sitename = 'Wikimedia UK'
+		elif (code == 've'):
+			self.sitename = 'Wikimedia Venezuela'
