@@ -186,10 +186,14 @@ class ASConverter:
 		else:
 			for suffix in self.normalsuffixes:
 				if suffix in wikidb:
-					self.site = suffix.title() # Capitalises the first letter
-					templang = wikidb.replace(suffix, "")
-					self.lang = templang.replace("_", "-")
-					break
+					if (wikidb == "betawikiversity"):
+						self.special = True
+						self.site = ""
+					else:
+						self.site = suffix.title() # Capitalises the first letter
+						templang = wikidb.replace(suffix, "")
+						self.lang = templang.replace("_", "-")
+						break
 				else:
 					continue
 
