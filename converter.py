@@ -73,6 +73,21 @@ class ASConverter:
 			'zh_yuewiki']
 		self.badcases = [
 			'tenwiki']
+		self.specialnames = {
+			"donatewiki": "Donate Wiki",
+			"foundationwiki": "Wikimedia Foundation wiki",
+			"mediawikiwiki": "MediaWiki.org",
+			"metawiki": "Meta-Wiki",
+			"nostalgiawiki": "Nostalgia Wikipedia",
+			"outreachwiki": "Outreach Wiki",
+			"sourceswiki": "Wikisource",
+			"specieswiki": "Wikispecies",
+			"strategywiki": "Wikimedia Strategic Planning",
+			"testwiki": "Test Wikipedia",
+			"test2wiki": "test2.Wikipedia",
+			"usabilitywiki": "Wikimedia Usability Initiative",
+			"wikidatawiki": "Wikidata"
+		}
 
 		# Globals for conversion of dates to human-readable format.
 		self.date = ""
