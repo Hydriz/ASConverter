@@ -35,6 +35,7 @@
 from datetime import datetime
 import os
 import re
+import time
 import urllib
 import xml.etree.ElementTree as ET
 
@@ -109,8 +110,15 @@ class ASConverter:
 			if not (os.path.exists('langlist.xml')):
 				os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml -q')
 			else:
-				# Don't do anything (hackish way of making the script continue)
-				blah = ""
+				# Auto-update langlist.xml file after seven days
+				lastchange = os.path.getctime('langlist.xml')
+				now = time.time()
+				weekago = now - 60*60*24*7
+				if (lastchange < weekago):
+					os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml -q')
+				else:
+					# Don't do anything (hackish way of making the script continue)
+					blah = ""
 			tree = ET.parse('langlist.xml')
 			root = tree.getroot()
 			if (self.special):
