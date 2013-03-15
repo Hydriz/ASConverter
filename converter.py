@@ -265,11 +265,11 @@ class ASConverter:
 		Parameters:
 		* date - The date format to work on (should be %Y%m%d format)
 		
-		This function returns a date in %B %d, %Y format. Please use the 
-		self.date variable in the script.
+		This function returns a date in %B %d, %Y format.
 		"""
 		d = datetime.strptime(date, '%Y%m%d')
-		self.date = day_string = d.strftime('%B %d, %Y')
+		self.date = d.strftime('%B %d, %Y')
+		return self.date
 
 	def convertcountrycode(self, code):
 		"""
@@ -328,3 +328,9 @@ class ASConverter:
 			self.sitename = 'Wikimedia UK'
 		elif (code == 've'):
 			self.sitename = 'Wikimedia Venezuela'
+
+if __name__ == "__main__":
+	import sys
+	error = "Opps, this script is meant to be called using another python script and not directly. Please study the documentation on how to use this from another script."
+	print error
+	sys.exit(1)
