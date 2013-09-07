@@ -28,7 +28,6 @@
 # self.date	-	This is the output date (20121010 to October 10, 2012).
 #
 # TODO:
-# * The script does not work for special wikis (i.e. incubatorwiki).
 # * The language code hacks should be fixed upstream at CLDR, though it 
 #   isn't of the highest priority right now.
 
@@ -123,10 +122,16 @@ class ASConverter:
 			root = tree.getroot()
 			if (self.special):
 				if wikidb.endswith("wiki"):
-					if (wikidb == "donatewiki"):
+					if (wikidb == "advisorywiki"):
+						self.sitename = "Advisory Board wiki"
+					elif (wikidb == "donatewiki"):
 						self.sitename = "Donate Wiki"
 					elif (wikidb == "foundationwiki"):
 						self.sitename = "Wikimedia Foundation wiki"
+					elif (wikidb == "incubatorwiki"):
+						self.sitename = "Wikimedia Incubator"
+					elif (wikidb == "loginwiki"):
+						self.sitename = "Wikimedia Login wiki"
 					elif (wikidb == "mediawikiwiki"):
 						self.sitename = "MediaWiki.org"
 					elif (wikidb == "metawiki"):
@@ -135,18 +140,24 @@ class ASConverter:
 						self.sitename = "Nostalgia Wikipedia"
 					elif (wikidb == "outreachwiki"):
 						self.sitename = "Outreach Wiki"
+					elif (wikidb == "qualitywiki"):
+						self.sitename = "Wikimedia Quality"
 					elif (wikidb == "sourceswiki"):
 						self.sitename = "Wikisource"
 					elif (wikidb == "specieswiki"):
 						self.sitename = "Wikispecies"
 					elif (wikidb == "strategywiki"):
 						self.sitename = "Wikimedia Strategic Planning"
+					elif (wikidb == "testwikidatawiki"):
+						self.sitename = "Wikidata Test Wiki"
 					elif (wikidb == "testwiki"):
 						self.sitename = "Test Wikipedia"
 					elif (wikidb == "test2wiki"):
 						self.sitename = "test2.Wikipedia"
 					elif (wikidb == "usabilitywiki"):
 						self.sitename = "Wikimedia Usability Initiative"
+					elif (wikidb == "votewiki"):
+						self.sitename = "Wikimedia Vote Wiki"
 					elif (wikidb == "wikidatawiki"):
 						self.sitename = "Wikidata"
 					elif (wikidb.startswith("wikimania")):
@@ -154,6 +165,11 @@ class ASConverter:
 						wmyear = tempname.replace("wiki","")
 						self.sitename = "Wikimania %s" % (wmyear)
 					else:
+						self.sitename = wikidb # Keep it like the way it is now
+				elif (wikidb.endswith("wikimedia")):
+					code = wikidb.replace("wikimedia","")
+					self.convertcountrycode(code)
+					if (self.sitename == ""):
 						self.sitename = wikidb # Keep it like the way it is now
 				else:
 					if (wikidb == "betawikiversity"):
@@ -202,10 +218,7 @@ class ASConverter:
 					self.site = "Wikipedia"
 					self.lang = wikidb.replace("wiki", "")
 		elif wikidb.endswith("wikimedia"):
-			code = wikidb.replace("wikimedia","")
-			self.convertcountrycode(code)
-			if (self.sitename == ""):
-				self.sitename = wikidb # Keep it like the way it is now
+			self.special = True
 		else:
 			for suffix in self.normalsuffixes:
 				if suffix in wikidb:
