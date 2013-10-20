@@ -124,6 +124,8 @@ class ASConverter:
 				if wikidb.endswith("wiki"):
 					if (wikidb == "advisorywiki"):
 						self.sitename = "Advisory Board wiki"
+					elif (wikidb == "commonswiki"):
+						self.sitename = "Wikimedia Commons"
 					elif (wikidb == "donatewiki"):
 						self.sitename = "Donate Wiki"
 					elif (wikidb == "foundationwiki"):
