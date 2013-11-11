@@ -73,21 +73,69 @@ class ASConverter:
 			'zh_yuewiki']
 		self.badcases = [
 			'tenwiki']
+
+		# Dictionaries
+		self.speciallang = {
+			"be-x-old": "Belarusian Classical",
+			"bxr": "Russia Buriat",
+			"fiu-vro": "Voro",
+			"frp": "Arpitan",
+			"lbe": "Lak",
+			"nb": "Norwegian Bokmal",
+			"no": "Norwegian",
+			"pfl": "Palatinate German",
+			"roa-tara": "Tarantino",
+			"vec": "Venetian",
+			"vo": "Volapuk"}
+
 		self.specialnames = {
+			"advisorywiki": "Advisory Board wiki",
+			"commonswiki": "Wikimedia Commons",
 			"donatewiki": "Donate Wiki",
 			"foundationwiki": "Wikimedia Foundation wiki",
+			"incubatorwiki": "Wikimedia Incubator",
+			"loginwiki": "Wikimedia Login wiki",
 			"mediawikiwiki": "MediaWiki.org",
 			"metawiki": "Meta-Wiki",
 			"nostalgiawiki": "Nostalgia Wikipedia",
 			"outreachwiki": "Outreach Wiki",
+			"qualitywiki": "Wikimedia Quality",
 			"sourceswiki": "Wikisource",
 			"specieswiki": "Wikispecies",
 			"strategywiki": "Wikimedia Strategic Planning",
+			"testwikidatawiki": "Wikidata Test Wiki",
 			"testwiki": "Test Wikipedia",
 			"test2wiki": "test2.Wikipedia",
 			"usabilitywiki": "Wikimedia Usability Initiative",
-			"wikidatawiki": "Wikidata"
-		}
+			"votewiki": "Wikimedia Vote Wiki",
+			"wikidatawiki": "Wikidata"}
+
+		# 24 wikis
+		self.countrycode = {
+			"ar": "Wikimedia Argentina",
+			"bd": "Wikimedia Bangladesh",
+			"be": "Wikimedia Belgium",
+			"br": "Wikimedia Brazil",
+			"co": "Wikimedia Colombia",
+			"dk": "Wikimedia Denmark",
+			"et": "Wikimedia Estonia",
+			"fi": "Wikimedia Finland",
+			"il": "Wikimedia Israel",
+			"mk": "Wikimedia Macedonia",
+			"mx": "Wikimedia Mexico",
+			"nl": "Wikimedia Netherlands",
+			"no": "Wikimedia Norway",
+			"nyc": "Wikimedia New York City", # Unofficial
+			"nz": "Wikimedia New Zealand",
+			"pa_us": "Wikimedia Pennsylvania", # Unofficial
+			"pl": "Wikimedia Poland",
+			"rs": "Wikimedia Serbia",
+			"ru": "Wikimedia Russia",
+			"se": "Wikimedia Sweden",
+			"tr": "Wikimedia Turkey",
+			"ua": "Wikimedia Ukraine",
+			"uk": "Wikimedia UK",
+			"ve": "Wikimedia Venezuela" }
 
 		# Globals for conversion of dates to human-readable format.
 		self.date = ""
@@ -116,52 +164,14 @@ class ASConverter:
 				if (lastchange < weekago):
 					os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml -q')
 				else:
-					# Don't do anything (hackish way of making the script continue)
-					blah = ""
+					# Continue with script
+					time.sleep(0)
 			tree = ET.parse('langlist.xml')
 			root = tree.getroot()
 			if (self.special):
 				if wikidb.endswith("wiki"):
-					if (wikidb == "advisorywiki"):
-						self.sitename = "Advisory Board wiki"
-					elif (wikidb == "commonswiki"):
-						self.sitename = "Wikimedia Commons"
-					elif (wikidb == "donatewiki"):
-						self.sitename = "Donate Wiki"
-					elif (wikidb == "foundationwiki"):
-						self.sitename = "Wikimedia Foundation wiki"
-					elif (wikidb == "incubatorwiki"):
-						self.sitename = "Wikimedia Incubator"
-					elif (wikidb == "loginwiki"):
-						self.sitename = "Wikimedia Login wiki"
-					elif (wikidb == "mediawikiwiki"):
-						self.sitename = "MediaWiki.org"
-					elif (wikidb == "metawiki"):
-						self.sitename = "Meta-Wiki"
-					elif (wikidb == "nostalgiawiki"):
-						self.sitename = "Nostalgia Wikipedia"
-					elif (wikidb == "outreachwiki"):
-						self.sitename = "Outreach Wiki"
-					elif (wikidb == "qualitywiki"):
-						self.sitename = "Wikimedia Quality"
-					elif (wikidb == "sourceswiki"):
-						self.sitename = "Wikisource"
-					elif (wikidb == "specieswiki"):
-						self.sitename = "Wikispecies"
-					elif (wikidb == "strategywiki"):
-						self.sitename = "Wikimedia Strategic Planning"
-					elif (wikidb == "testwikidatawiki"):
-						self.sitename = "Wikidata Test Wiki"
-					elif (wikidb == "testwiki"):
-						self.sitename = "Test Wikipedia"
-					elif (wikidb == "test2wiki"):
-						self.sitename = "test2.Wikipedia"
-					elif (wikidb == "usabilitywiki"):
-						self.sitename = "Wikimedia Usability Initiative"
-					elif (wikidb == "votewiki"):
-						self.sitename = "Wikimedia Vote Wiki"
-					elif (wikidb == "wikidatawiki"):
-						self.sitename = "Wikidata"
+					if wikidb in self.specialnames:
+						self.sitename = self.specialnames[wikidb]
 					elif (wikidb.startswith("wikimania")):
 						tempname = wikidb.replace("wikimania","")
 						wmyear = tempname.replace("wiki","")
@@ -187,6 +197,8 @@ class ASConverter:
 						break
 					else:
 						continue
+		if ( self.sitename == wikidb ):
+			os.system( "echo %s >> problem.txt" % (wikidb) )
 	
 	def sanitycheck(self, wikidb):
 		"""
@@ -246,28 +258,8 @@ class ASConverter:
 		TODO: Fix the language codes upstream so that we don't have to do 
 		this hackish method of making the languages really English.
 		"""
-		if (self.lang == "be-x-old"):
-			self.langname = "Belarusian Classical"
-		elif (self.lang == "bxr"):
-			self.langname = "Russia Buriat"
-		elif (self.lang == "fiu-vro"):
-			self.langname = "Voro"
-		elif (self.lang == "frp"):
-			self.langname = "Arpitan"
-		elif (self.lang == "lbe"):
-			self.langname = "Lak"
-		elif (self.lang == "nb"):
-			self.langname = "Norwegian Bokmal"
-		elif (self.lang == "no"):
-			self.langname = "Norwegian"
-		elif (self.lang == "pfl"):
-			self.langname = "Palatinate German"
-		elif (self.lang == "roa-tara"):
-			self.langname = "Tarantino"
-		elif (self.lang == "vec"):
-			self.langname = "Venetian"
-		elif (self.lang == "vo"):
-			self.langname = "Volapuk"
+		if self.lang in self.speciallang:
+			self.langname = self.speciallang[self.lang]
 
 	def convertdate(self, date):
 		"""
@@ -295,54 +287,8 @@ class ASConverter:
 		that aren't really pointing to a country. In short, this is 
 		Wikimedia-specific.
 		"""
-		if (code == 'ar'):
-			self.sitename = 'Wikimedia Argentina'
-		elif (code == 'bd'):
-			self.sitename = 'Wikimedia Bangladesh'
-		elif (code == 'be'):
-			self.sitename = 'Wikimedia Belgium'
-		elif (code == 'br'):
-			self.sitename = 'Wikimedia Brazil'
-		elif (code == 'co'):
-			self.sitename = 'Wikimedia Colombia'
-		elif (code == 'dk'):
-			self.sitename = 'Wikimedia Denmark'
-		elif (code == 'et'):
-			self.sitename = 'Wikimedia Estonia'
-		elif (code == 'fi'):
-			self.sitename = 'Wikimedia Finland'
-		elif (code == 'il'):
-			self.sitename = 'Wikimedia Israel'
-		elif (code == 'mk'):
-			self.sitename = 'Wikimedia Macedonia'
-		elif (code == 'mx'):
-			self.sitename = 'Wikimedia Mexico'
-		elif (code == 'nl'):
-			self.sitename = 'Wikimedia Netherlands'
-		elif (code == 'no'):
-			self.sitename = 'Wikimedia Norway'
-		elif (code == 'nyc'):
-			self.sitename = 'Wikimedia New York City' # Unofficial
-		elif (code == 'nz'):
-			self.sitename = 'Wikimedia New Zealand'
-		elif (code == 'pa_us'):
-			self.sitename = 'Wikimedia Pennsylvania' # Unofficial
-		elif (code == 'pl'):
-			self.sitename = 'Wikimedia Poland'
-		elif (code == 'rs'):
-			self.sitename = 'Wikimedia Serbia'
-		elif (code == 'ru'):
-			self.sitename = 'Wikimedia Russia'
-		elif (code == 'se'):
-			self.sitename = 'Wikimedia Sweden'
-		elif (code == 'tr'):
-			self.sitename = 'Wikimedia Turkey'
-		elif (code == 'ua'):
-			self.sitename = 'Wikimedia Ukraine'
-		elif (code == 'uk'):
-			self.sitename = 'Wikimedia UK'
-		elif (code == 've'):
-			self.sitename = 'Wikimedia Venezuela'
+		if code in self.countrycode:
+			self.sitename = self.countrycode[code]
 
 if __name__ == "__main__":
 	import sys
