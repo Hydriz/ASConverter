@@ -155,14 +155,14 @@ class ASConverter:
 			self.sitename = wikidb # Keep it like the way it is now
 		else:
 			if not (os.path.exists('langlist.xml')):
-				os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml -q')
+				urllib.urlretrieve( "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml", "langlist.xml")
 			else:
 				# Auto-update langlist.xml file after seven days
 				lastchange = os.path.getctime('langlist.xml')
 				now = time.time()
 				weekago = now - 60*60*24*7
 				if (lastchange < weekago):
-					os.system('wget "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml" -O langlist.xml -q')
+					urllib.urlretrieve( "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml", "langlist.xml")
 				else:
 					# Continue with script
 					time.sleep(0)
@@ -198,7 +198,9 @@ class ASConverter:
 					else:
 						continue
 		if ( self.sitename == wikidb ):
-			os.system( "echo %s >> problem.txt" % (wikidb) )
+			f = open( "problem", "a" )
+			f.write( "%s\n" % ( wikidb ) )
+			f.close()
 	
 	def sanitycheck(self, wikidb):
 		"""
