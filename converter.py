@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2013 Hydriz
+# Copyright (C) 2012-2014 Hydriz Scholz
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -77,6 +77,7 @@ class ASConverter:
 		# Dictionaries
 		self.speciallang = {
 			"be-x-old": "Belarusian Classical",
+			"bh": "Bihari",
 			"bxr": "Russia Buriat",
 			"fiu-vro": "Voro",
 			"frp": "Arpitan",
@@ -110,12 +111,13 @@ class ASConverter:
 			"votewiki": "Wikimedia Vote Wiki",
 			"wikidatawiki": "Wikidata"}
 
-		# 24 wikis
+		# 25 wikis
 		self.countrycode = {
 			"ar": "Wikimedia Argentina",
 			"bd": "Wikimedia Bangladesh",
 			"be": "Wikimedia Belgium",
 			"br": "Wikimedia Brazil",
+			"ca": "Wikimedia Canada",
 			"co": "Wikimedia Colombia",
 			"dk": "Wikimedia Denmark",
 			"et": "Wikimedia Estonia",
