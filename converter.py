@@ -93,6 +93,7 @@ class ASConverter:
 			"advisorywiki": "Advisory Board wiki",
 			"commonswiki": "Wikimedia Commons",
 			"donatewiki": "Donate Wiki",
+			"fdcwiki": "Wikimedia FDC",
 			"foundationwiki": "Wikimedia Foundation wiki",
 			"incubatorwiki": "Wikimedia Incubator",
 			"loginwiki": "Wikimedia Login wiki",
@@ -104,6 +105,7 @@ class ASConverter:
 			"sourceswiki": "Wikisource",
 			"specieswiki": "Wikispecies",
 			"strategywiki": "Wikimedia Strategic Planning",
+			"tenwiki": "Wikipedia 10",
 			"testwikidatawiki": "Wikidata Test Wiki",
 			"testwiki": "Test Wikipedia",
 			"test2wiki": "test2.Wikipedia",
@@ -229,9 +231,9 @@ class ASConverter:
 					self.site = ""
 			elif length < 8:
 				if (wikidb == "tenwiki"):
-					self.sitename = "Wikipedia 10"
+					self.special = True
 				elif (wikidb == "fdcwiki"):
-					self.sitename = "Wikimedia FDC"
+					self.special = True
 				else:
 					self.site = "Wikipedia"
 					self.lang = wikidb.replace("wiki", "")
