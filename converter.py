@@ -284,6 +284,25 @@ class ASConverter:
 		self.date = d.strftime('%B %d, %Y')
 		return self.date
 
+	def convertmediacountsdate(self, date):
+		"""
+		This function converts the date format for the media counts files into
+		a more human-readable format (same as convertdate). This function
+		changes things like:
+		2015-02-05 -> February 05, 2015
+
+		This function is to be used directly in archive scripts, but mainly
+		designed for use by the media counts archiving script.
+
+		Parameters:
+		* date - The date format to work on (should be %Y-%m-%d format)
+
+		This function returns a date in %B %d, %Y format.
+		"""
+		d = datetime.strptime(date, '%Y-%m-%d')
+		self.date = d.strftime('%B %d, %Y')
+		return self.date
+
 	def convertcountrycode(self, code):
 		"""
 		This function converts the country code into a readable name of the 
