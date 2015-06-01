@@ -120,6 +120,7 @@ class ASConverter:
 			"be": "Wikimedia Belgium",
 			"br": "Wikimedia Brazil",
 			"ca": "Wikimedia Canada",
+			"cn": "Wikimedia China",
 			"co": "Wikimedia Colombia",
 			"dk": "Wikimedia Denmark",
 			"et": "Wikimedia Estonia",
