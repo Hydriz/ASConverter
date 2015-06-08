@@ -82,6 +82,7 @@ class ASConverter:
 			"fiu-vro": "Voro",
 			"frp": "Arpitan",
 			"lbe": "Lak",
+			"nah": "Nahuatl",
 			"nb": "Norwegian Bokmal",
 			"no": "Norwegian",
 			"pfl": "Palatinate German",
