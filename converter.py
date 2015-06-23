@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2014 Hydriz Scholz
+# Copyright (C) 2012-2015 Hydriz Scholz
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -73,22 +73,6 @@ class ASConverter:
 			'zh_yuewiki']
 		self.badcases = [
 			'tenwiki']
-
-		# Dictionaries
-		self.speciallang = {
-			"be-x-old": "Belarusian Classical",
-			"bh": "Bihari",
-			"bxr": "Russia Buriat",
-			"fiu-vro": "Voro",
-			"frp": "Arpitan",
-			"lbe": "Lak",
-			"nah": "Nahuatl",
-			"nb": "Norwegian Bokmal",
-			"no": "Norwegian",
-			"pfl": "Palatinate German",
-			"roa-tara": "Tarantino",
-			"vec": "Venetian",
-			"vo": "Volapuk"}
 
 		self.specialnames = {
 			"advisorywiki": "Advisory Board wiki",
@@ -197,7 +181,7 @@ class ASConverter:
 			else:
 				for language in root.iter('language'):
 					if (self.lang == language.get('code')):
-						self.langname = language.get('localname')
+						self.langname = language.get('localname').encode('utf8')
 						self.encodingcheck()
 						self.sitename = "%s %s" % (self.langname, self.site)
 						break
@@ -254,20 +238,6 @@ class ASConverter:
 						break
 				else:
 					continue
-
-	def encodingcheck(self):
-		"""
-		This function checks if the wiki database name matches a set marked 
-		out as having issues with encoding, which can cause scripts to go 
-		crazy and exit altogether.
-		
-		This function is called by self.convertdb()
-		
-		TODO: Fix the language codes upstream so that we don't have to do 
-		this hackish method of making the languages really English.
-		"""
-		if self.lang in self.speciallang:
-			self.langname = self.speciallang[self.lang]
 
 	def convertdate(self, date):
 		"""
