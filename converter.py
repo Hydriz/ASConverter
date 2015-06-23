@@ -187,7 +187,6 @@ class ASConverter:
 				for language in root.iter('language'):
 					if (self.lang == language.get('code')):
 						self.langname = language.get('localname').encode('utf8')
-						self.encodingcheck()
 						self.sitename = "%s %s" % (self.langname, self.site)
 						break
 					else:
