@@ -57,7 +57,8 @@ class ASConverter:
 			'wikiquote',
 			'wikisource',
 			'wikiversity',
-			'wikivoyage']
+			'wikivoyage'
+		]
 		self.specialcases = [
 			'bat_smgwiki',
 			'be_x_oldwiki',
@@ -70,9 +71,11 @@ class ASConverter:
 			'simplewiki',
 			'zh_classicalwiki',
 			'zh_min_nanwiki',
-			'zh_yuewiki']
+			'zh_yuewiki'
+		]
 		self.badcases = [
-			'tenwiki']
+			'tenwiki'
+		]
 
 		self.specialnames = {
 			"advisorywiki": "Advisory Board wiki",
@@ -96,7 +99,8 @@ class ASConverter:
 			"test2wiki": "test2.Wikipedia",
 			"usabilitywiki": "Wikimedia Usability Initiative",
 			"votewiki": "Wikimedia Vote Wiki",
-			"wikidatawiki": "Wikidata"}
+			"wikidatawiki": "Wikidata"
+		}
 
 		# 25 wikis
 		self.countrycode = {
@@ -125,7 +129,8 @@ class ASConverter:
 			"tr": "Wikimedia Turkey",
 			"ua": "Wikimedia Ukraine",
 			"uk": "Wikimedia UK",
-			"ve": "Wikimedia Venezuela" }
+			"ve": "Wikimedia Venezuela"
+		}
 
 		# Globals for conversion of dates to human-readable format.
 		self.date = ""
