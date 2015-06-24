@@ -149,10 +149,10 @@ class ASConverter:
 			if not (os.path.exists('langlist.xml')):
 				urllib.urlretrieve( "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml", "langlist.xml")
 			else:
-				# Auto-update langlist.xml file after seven days
+				# Auto-update langlist.xml file everyday
 				lastchange = os.path.getctime('langlist.xml')
 				now = time.time()
-				weekago = now - 60*60*24*7
+				weekago = now - 60*60*24*1
 				if (lastchange < weekago):
 					urllib.urlretrieve( "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml", "langlist.xml")
 				else:
