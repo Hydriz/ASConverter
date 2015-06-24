@@ -26,10 +26,6 @@
 # self.langname - 	This is the language name of the wiki database. E.g. 
 #					"en" will become "English".
 # self.date	-	This is the output date (20121010 to October 10, 2012).
-#
-# TODO:
-# * The language code hacks should be fixed upstream at CLDR, though it 
-#   isn't of the highest priority right now.
 
 from datetime import datetime
 import os
@@ -37,6 +33,9 @@ import re
 import time
 import urllib
 import xml.etree.ElementTree as ET
+
+class IncorrectUsage(Exception):
+	pass
 
 class ASConverter:
 	def __init__(self):
@@ -139,9 +138,7 @@ class ASConverter:
 		"""
 		This is the main function for converting database names into proper 
 		readable wiki names (i.e. enwiki -> English Wikipedia).
-		
-		TODO: Make this script work for special wikis.
-		
+
 		wikidb - The database name to work on.
 		"""
 		self.sanitycheck(wikidb)
@@ -203,9 +200,9 @@ class ASConverter:
 		exceptions to this for the special wikis (i.e. metawiki). These 
 		special wikis will be kept in its original state (its part of 
 		the file's TODO).
-		
+
 		This function is called by self.convertdb().
-		
+
 		wikidb - The database name to work with.
 		"""
 		if wikidb.endswith("wiki"):
@@ -250,10 +247,10 @@ class ASConverter:
 		20121010 -> October 10, 2012
 		
 		This function is supposed to be directly called by the archive scripts.
-		
+
 		Parameters:
 		* date - The date format to work on (should be %Y%m%d format)
-		
+
 		This function returns a date in %B %d, %Y format.
 		"""
 		d = datetime.strptime(date, '%Y%m%d')
@@ -273,7 +270,4 @@ class ASConverter:
 			self.sitename = self.countrycode[code]
 
 if __name__ == "__main__":
-	import sys
-	error = "Opps, this script is meant to be called using another python script and not directly. Please study the documentation on how to use this from another script."
-	print error
-	sys.exit(1)
+	raise IncorrectUsage("Script cannot be called directly")
