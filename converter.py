@@ -156,8 +156,7 @@ class ASConverter:
 				if (lastchange < weekago):
 					urllib.urlretrieve( "https://en.wikipedia.org/w/api.php?action=sitematrix&smtype=language&smlangprop=localname|code&format=xml", "langlist.xml")
 				else:
-					# Continue with script
-					time.sleep(0)
+					pass
 			tree = ET.parse('langlist.xml')
 			root = tree.getroot()
 			if (self.special):
