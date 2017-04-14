@@ -128,7 +128,8 @@ class ASConverter:
 			"tr": "Wikimedia Turkey",
 			"ua": "Wikimedia Ukraine",
 			"uk": "Wikimedia UK",
-			"ve": "Wikimedia Venezuela"
+			"ve": "Wikimedia Venezuela",
+			"wb": "Wikimedia West Bengal"
 		}
 
 		# Globals for conversion of dates to human-readable format.
