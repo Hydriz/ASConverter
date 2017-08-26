@@ -122,6 +122,7 @@ class ASConverter:
 			"nz": "Wikimedia New Zealand",
 			"pa_us": "Wikimedia Pennsylvania", # Unofficial
 			"pl": "Wikimedia Poland",
+			"pt": "Wikimedia Portugal",
 			"rs": "Wikimedia Serbia",
 			"ru": "Wikimedia Russia",
 			"se": "Wikimedia Sweden",
