@@ -103,6 +103,7 @@ class ASConverter:
 
 		# 25 wikis
 		self.countrycode = {
+			"am": "Wikimedia Armenia",
 			"ar": "Wikimedia Argentina",
 			"bd": "Wikimedia Bangladesh",
 			"be": "Wikimedia Belgium",
@@ -114,6 +115,7 @@ class ASConverter:
 			"et": "Wikimedia Estonia",
 			"fi": "Wikimedia Finland",
 			"il": "Wikimedia Israel",
+			"mai": "Maithili Wikimedians",
 			"mk": "Wikimedia Macedonia",
 			"mx": "Wikimedia Mexico",
 			"nl": "Wikimedia Netherlands",
