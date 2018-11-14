@@ -5,25 +5,25 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # This is the converter class for all archiving scripts by Hydriz. It
-# is not designed to work standalone, but rather as a supporting scripts 
-# for the scripts. You can find the different archiving projects and 
+# is not designed to work standalone, but rather as a supporting scripts
+# for the scripts. You can find the different archiving projects and
 # scripts at https://github.com/Hydriz
-# 
+#
 # Usage:
 # self.site	-	This is the site that the wiki database should belong to.
-#				E.g. if the database ends with "wiktionary", self.site 
+#				E.g. if the database ends with "wiktionary", self.site
 #				will output "Wiktionary".
-# self.langname - 	This is the language name of the wiki database. E.g. 
+# self.langname - 	This is the language name of the wiki database. E.g.
 #					"en" will become "English".
 # self.date	-	This is the output date (20121010 to October 10, 2012).
 
@@ -82,6 +82,7 @@ class ASConverter:
 			"donatewiki": "Donate Wiki",
 			"fdcwiki": "Wikimedia FDC",
 			"foundationwiki": "Wikimedia Foundation wiki",
+			"fixcopyrightwiki": "Fix copyright wiki",
 			"incubatorwiki": "Wikimedia Incubator",
 			"loginwiki": "Wikimedia Login wiki",
 			"mediawikiwiki": "MediaWiki.org",
@@ -114,6 +115,8 @@ class ASConverter:
 			"dk": "Wikimedia Denmark",
 			"et": "Wikimedia Estonia",
 			"fi": "Wikimedia Finland",
+			"hi": "Hindi Wikimedians User Group",
+			"id": "Wikimedia Indonesia",
 			"il": "Wikimedia Israel",
 			"mai": "Maithili Wikimedians",
 			"mk": "Wikimedia Macedonia",
@@ -125,6 +128,8 @@ class ASConverter:
 			"pa_us": "Wikimedia Pennsylvania", # Unofficial
 			"pl": "Wikimedia Poland",
 			"pt": "Wikimedia Portugal",
+			"punjabi": "Punjabi Wikimedians User Group", # Unofficial
+			"romd": "Wikimedians of Romania and Moldova User Group", # Unofficial
 			"rs": "Wikimedia Serbia",
 			"ru": "Wikimedia Russia",
 			"se": "Wikimedia Sweden",
@@ -140,7 +145,7 @@ class ASConverter:
 
 	def convertdb(self, wikidb):
 		"""
-		This is the main function for converting database names into proper 
+		This is the main function for converting database names into proper
 		readable wiki names (i.e. enwiki -> English Wikipedia).
 
 		wikidb - The database name to work on.
@@ -195,13 +200,13 @@ class ASConverter:
 			f = open( "problem", "a" )
 			f.write( "%s\n" % ( wikidb ) )
 			f.close()
-	
+
 	def sanitycheck(self, wikidb):
 		"""
-		This function will figure out the site that the database belongs 
-		to. It is guessed from the database name, although there are 
-		exceptions to this for the special wikis (i.e. metawiki). These 
-		special wikis will be kept in its original state (its part of 
+		This function will figure out the site that the database belongs
+		to. It is guessed from the database name, although there are
+		exceptions to this for the special wikis (i.e. metawiki). These
+		special wikis will be kept in its original state (its part of
 		the file's TODO).
 
 		This function is called by self.convertdb().
@@ -248,7 +253,7 @@ class ASConverter:
 		This is the main function for converting the date into a more human-
 		readable format. In this case, we are changing things like:
 		20121010 -> October 10, 2012
-		
+
 		This function is supposed to be directly called by the archive scripts.
 
 		Parameters:
@@ -262,11 +267,11 @@ class ASConverter:
 
 	def convertcountrycode(self, code):
 		"""
-		This function converts the country code into a readable name of the 
+		This function converts the country code into a readable name of the
 		country in question, used for chapter wikis.
 
-		Note: This does not contain all countries, and may contain codes 
-		that aren't really pointing to a country. In short, this is 
+		Note: This does not contain all countries, and may contain codes
+		that aren't really pointing to a country. In short, this is
 		Wikimedia-specific.
 		"""
 		if code in self.countrycode:
